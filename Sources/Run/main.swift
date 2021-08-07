@@ -1,3 +1,5 @@
+/// Copyright (c) 2021 Duc Hai Nguyen
+
 import App
 import Vapor
 
