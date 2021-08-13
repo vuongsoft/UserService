@@ -23,11 +23,15 @@ final class User: Model, Content {
 
   @Field(key: "password")
   var password: String
+    
+  @Field(key: "locationID")
+  var locationID: UUID
 
-  init(name: String, username: String, password: String) {
+    init(name: String, username: String, password: String, locationID: UUID) {
     self.name = name
     self.username = username
     self.password = password
+    self.locationID = locationID
   }
 
   init() {}
@@ -36,18 +40,20 @@ final class User: Model, Content {
     var id: UUID?
     var name: String
     var username: String
+    var locationID: UUID
 
-    init(id: UUID?, name: String, username: String) {
+    init(id: UUID?, name: String, username: String, locationID: UUID) {
       self.id = id
       self.name = name
       self.username = username
+      self.locationID = locationID
     }
   }
 }
 
 extension User {
   func convertToPublic() -> User.Public {
-    return User.Public(id: id, name: name, username: username)
+    return User.Public(id: id, name: name, username: username, locationID: locationID)
   }
 }
 
