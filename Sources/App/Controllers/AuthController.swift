@@ -21,8 +21,7 @@ struct AuthController: RouteCollection {
     authGroup.post("authenticate", use: authenticate)
   }
 
-  func loginHandler(_ req: Request)
-    throws -> EventLoopFuture<Token> {
+  func loginHandler(_ req: Request) throws -> EventLoopFuture<Token> {
       // 1
       let user = try req.auth.require(User.self)
       // 2
@@ -33,8 +32,7 @@ struct AuthController: RouteCollection {
         .transform(to: token)
   }
 
-  func authenticate(_ req: Request)
-    throws -> EventLoopFuture<User.Public> {
+  func authenticate(_ req: Request) throws -> EventLoopFuture<User.Public> {
       // 1
       let data = try req.content.decode(AuthenticateData.self)
       // 2

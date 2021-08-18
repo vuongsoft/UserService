@@ -39,7 +39,14 @@ struct UsersController: RouteCollection {
         .unwrap(or: Abort(.notFound)).flatMap { user in
           user.name = updatedUser.name
           user.username = updatedUser.username
-          user.locationID = updatedUser.locationID
+          user.email = updatedUser.email
+          user.phone = updatedUser.phone
+          user.gender = updatedUser.gender
+          user.avatar = updatedUser.avatar
+          user.birthday = updatedUser.birthday
+          user.pointing = updatedUser.pointing
+          user.address_id = updatedUser.address_id
+            
           return user.save(on: req.db).map {
             user.convertToPublic()
           }

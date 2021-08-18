@@ -16,7 +16,16 @@ struct CreateUser: Migration {
       .field("username", .string, .required)
       .unique(on: "username")
       .field("password", .string, .required)
-      .field("locationID", .uuid)
+      .field("email", .string, .required)
+      .field("phone", .string, .required)
+      .field("gender", .string)
+      .field("avatar", .string)
+      .field("birthday", .datetime)
+      .field("pointing", .int)
+      .field("createdAt", .datetime)
+      .field("updatedAt", .datetime)
+      .field("deletedAt", .datetime)
+      .field("address_id", .uuid)
       .create()
   }
 
