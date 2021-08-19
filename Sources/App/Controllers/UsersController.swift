@@ -6,6 +6,7 @@
 //
 
 import Vapor
+import SendGrid
 
 struct UsersController: RouteCollection {
   func boot(routes: RoutesBuilder) throws {
@@ -30,7 +31,26 @@ struct UsersController: RouteCollection {
     user.password = try Bcrypt.hash(user.password)
     return user.save(on: req.db).map {
       user.convertToPublic()
-    }
+    }/*.flatMap { (userResponse) in
+        let subject: String = "Chào mừng bạn đến với bujo"
+        let body: String = "Chào mừng bạn đến với bujo!"
+        let name = [user.name].compactMap({ $0 }).joined(separator: " ")
+        let from = EmailAddress(email: "vuongsoft.vn@gmail.com", name: nil)
+        let address = EmailAddress(email: user.email, name: name)
+        let header = Personalization(to: [address], subject: subject)
+        let email = SendGridEmail(personalizations: [header], from: from, subject: subject, content: [[
+            "type": "text",
+            "value": body
+            ]])
+        
+        do {
+            return try req.application.sendgrid.client.send(email: email, on: req.eventLoop).transform(to: userResponse)
+        }
+        catch {
+            return req.eventLoop.makeFailedFuture(error)
+        }
+    } */
+    
   }
     
     func updateHandler(_ req: Request) throws -> EventLoopFuture<User.Public> {

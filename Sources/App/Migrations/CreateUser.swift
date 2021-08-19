@@ -20,7 +20,7 @@ struct CreateUser: Migration {
       .field("phone", .string, .required)
       .field("gender", .string)
       .field("avatar", .string)
-      .field("birthday", .datetime)
+      .field("birthday", .string)
       .field("pointing", .int)
       .field("createdAt", .datetime)
       .field("updatedAt", .datetime)

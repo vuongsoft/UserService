@@ -4,6 +4,7 @@ import Fluent
 import FluentPostgresDriver
 import Vapor
 import Redis
+import SendGrid
 
 // configures your application
 public func configure(_ app: Application) throws {
@@ -25,6 +26,7 @@ public func configure(_ app: Application) throws {
   ), as: .psql)
 
   app.migrations.add(CreateUser())
+  app.migrations.add(CreateAddress())
 
   let redisHostname: String
   if let redisEnvironmentHostname =
@@ -39,6 +41,8 @@ public func configure(_ app: Application) throws {
   
   // register routes
   try routes(app)
+    
+  app.sendgrid.initialize()
 
   try app.autoMigrate().wait()
 }

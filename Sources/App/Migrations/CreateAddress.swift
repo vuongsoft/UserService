@@ -7,7 +7,7 @@
 
 import Fluent
 
-struct CreateLocation: Migration {
+struct CreateAddress: Migration {
   func prepare(on database: Database) -> EventLoopFuture<Void> {
     return database.schema("address")
       .id()
@@ -24,6 +24,6 @@ struct CreateLocation: Migration {
   }
   
   func revert(on database: Database) -> EventLoopFuture<Void> {
-    return database.schema("location").delete()
+    return database.schema("address").delete()
   }
 }

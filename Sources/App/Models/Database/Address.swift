@@ -14,11 +14,11 @@ final class Address: Model, Content {
     @ID(key: .id)
     var id: UUID?
     
-    @Field(key: "lat")
-    var lat: Double
+    @OptionalField(key: "lat")
+    var lat: Double?
     
-    @Field(key: "long")
-    var long: Double
+    @OptionalField(key: "long")
+    var long: Double?
     
     @Field(key: "so_nha")
     var so_nha: String
@@ -44,7 +44,7 @@ final class Address: Model, Content {
     init() {
     }
     
-    init(id: UUID? = nil, lat: Double, long: Double, so_nha: String, phuong_xa: String, quan_huyen: String, tinh_thanh: String) {
+    init(id: UUID? = nil, lat: Double? = nil, long: Double? = nil, so_nha: String, phuong_xa: String, quan_huyen: String, tinh_thanh: String) {
         self.id = id
         self.lat = lat
         self.long = long

@@ -37,7 +37,7 @@ final class User: Model, Content {
   var avatar: String?
 
   @OptionalField(key: "birthday")
-  var birthday: Date?
+  var birthday: String?
 
   @OptionalField(key: "pointing")
   var pointing: Int?
@@ -57,7 +57,7 @@ final class User: Model, Content {
 
     init(name: String, username: String, password: String, email: String,
          phone: String, gender: String? = nil, avatar: String? = nil,
-         birthday: Date? = nil, pointing: Int? = nil, address_id: UUID? = nil) {
+         birthday: String? = nil, pointing: Int? = nil, address_id: UUID? = nil) {
     self.name = name
     self.username = username
     self.password = password
@@ -81,13 +81,13 @@ final class User: Model, Content {
     var phone: String
     var gender: String?
     var avatar: String?
-    var birthday: Date?
+    var birthday: String?
     var pointing: Int?
     var address_id: UUID?
 
     init(id: UUID?, name: String, username: String, email: String,
          phone: String, gender: String?, avatar: String?,
-         birthday: Date?, pointing: Int?, address_id: UUID?) {
+         birthday: String?, pointing: Int?, address_id: UUID?) {
       self.id = id
       self.name = name
       self.username = username
