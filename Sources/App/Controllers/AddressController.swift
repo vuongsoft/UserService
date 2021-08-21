@@ -11,11 +11,11 @@ import Fluent
 struct AddressController: RouteCollection {
     
   func boot(routes: RoutesBuilder) throws {
-    let locationRoute = routes.grouped("address")
-    locationRoute.post(use: createHandler)
-    locationRoute.get(use: getAllHandler)
-    locationRoute.get(":addressID", use: getHandler)
-    locationRoute.put(":addressID", use: updateHandler)
+    let addressRoute = routes.grouped("address")
+    addressRoute.post(use: createHandler)
+    addressRoute.get(use: getAllHandler)
+    addressRoute.get(":addressID", use: getHandler)
+    addressRoute.put(":addressID", use: updateHandler)
 }
 
   func createHandler(_ req: Request) throws -> EventLoopFuture<Address> {
