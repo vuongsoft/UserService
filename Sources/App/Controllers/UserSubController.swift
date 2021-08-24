@@ -16,10 +16,18 @@ struct UserSubController: RouteCollection {
     usersubRoute.get(use: getAllHandler)
     usersubRoute.get(":usersubID", use: getHandler)
     usersubRoute.put(":usersubID", use: updateHandler)
+    
+    usersubRoute.get(":usersubID", "user", use: getUserHandler)
+
 }
 
-  func createHandler(_ req: Request) throws -> EventLoopFuture<UserSub> {
-    let usersub = try req.content.decode(UserSub.self)
+    func createHandler(_ req: Request) throws -> EventLoopFuture<UserSub> {
+    let data = try req.content.decode(CreateUserSubData.self)
+    
+    let usersub = UserSub(
+        type: data.type,
+        expired: data.expired,
+        user_id: data.user_id)
     return usersub.save(on: req.db).map { usersub }
   }
     
@@ -33,12 +41,12 @@ struct UserSubController: RouteCollection {
     }
     
     func updateHandler(_ req: Request) throws -> EventLoopFuture<UserSub> {
-      let updatedUserSub = try req.content.decode(UserSub.self)
+      let updatedUserSub = try req.content.decode(CreateUserSubData.self)
       return UserSub.find(req.parameters.get("usersubID"), on: req.db)
         .unwrap(or: Abort(.notFound)).flatMap { usersub in
             usersub.type = updatedUserSub.type
             usersub.expired = updatedUserSub.expired
-            usersub.user_id = updatedUserSub.user_id
+            usersub.$user.id = updatedUserSub.user_id
             
           return usersub.save(on: req.db).map {
             usersub
@@ -46,4 +54,18 @@ struct UserSubController: RouteCollection {
       }
     }
     
+    func getUserHandler(_ req: Request) -> EventLoopFuture<User> {
+      UserSub.find(req.parameters.get("usersubID"), on: req.db)
+      .unwrap(or: Abort(.notFound))
+      .flatMap { usersub in
+        usersub.$user.get(on: req.db)
+      }
+    }
+    
+}
+
+struct CreateUserSubData: Content {
+  let type: Int
+  let expired: String
+  let user_id: UUID
 }

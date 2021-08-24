@@ -5,7 +5,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "TILAppUsers",
+  name: "UserService",
   platforms: [
     .macOS(.v10_15)
   ],

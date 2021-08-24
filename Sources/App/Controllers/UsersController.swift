@@ -16,6 +16,8 @@ struct UsersController: RouteCollection {
     usersGroup.post(use: createHandler)
     usersGroup.put(":userID", use: updateHandler)
     
+    usersGroup.get(":userID", "usersub", use: getUserSubHandler)
+    
   }
 
   func getAllHandler(_ req: Request) -> EventLoopFuture<[User.Public]> {
@@ -71,6 +73,14 @@ struct UsersController: RouteCollection {
             user.convertToPublic()
           }
       }
+    }
+    
+    func getUserSubHandler(_ req: Request) -> EventLoopFuture<[UserSub]> {
+      User.find(req.parameters.get("userID"), on: req.db)
+        .unwrap(or: Abort(.notFound))
+        .flatMap { user in
+          user.$usersub.get(on: req.db)
+        }
     }
     
 }

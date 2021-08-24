@@ -10,36 +10,36 @@ import Vapor
 import Fluent
 
 final class User: Model, Content {
-  static let schema = "users"
+    static let schema = User.v21082021_102.schemaName
 
   @ID
   var id: UUID?
 
-  @Field(key: "name")
+    @Field(key: User.v21082021_102.name)
   var name: String
 
-  @Field(key: "username")
+    @Field(key: User.v21082021_102.username)
   var username: String
 
-  @Field(key: "password")
+    @Field(key: User.v21082021_102.password)
   var password: String
     
-  @Field(key: "email")
+    @Field(key: User.v21082021_102.email)
   var email: String
 
-  @Field(key: "phone")
+    @Field(key: User.v21082021_102.phone)
   var phone: String
     
-  @OptionalField(key: "gender")
+    @OptionalField(key: User.v21082021_102.gender)
   var gender: String?
       
-  @OptionalField(key: "avatar")
+    @OptionalField(key: User.v21082021_102.avatar)
   var avatar: String?
 
-  @OptionalField(key: "birthday")
+    @OptionalField(key: User.v21082021_102.birthday)
   var birthday: String?
 
-  @OptionalField(key: "pointing")
+    @OptionalField(key: User.v21082021_102.pointing)
   var pointing: Int?
 
   @Timestamp(key: "createdAt", on: .create)
@@ -51,9 +51,11 @@ final class User: Model, Content {
   @Timestamp(key: "deletedAt", on: .delete)
   var deletedAt: Date?
     
-  @OptionalField(key: "address_id")
+  @OptionalField(key: User.v21082021_102.address_id)
   var address_id: UUID?
-    
+
+  @Children(for: \UserSub.$user)
+  var usersub: [UserSub]
 
     init(name: String, username: String, password: String, email: String,
          phone: String, gender: String? = nil, avatar: String? = nil,

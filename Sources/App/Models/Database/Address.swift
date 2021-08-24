@@ -9,27 +9,27 @@ import Vapor
 import Fluent
 
 final class Address: Model, Content {
-    static let schema = "address"
+    static let schema = Address.v21082021_102.schemaName
     
     @ID(key: .id)
     var id: UUID?
     
-    @OptionalField(key: "lat")
+    @OptionalField(key: Address.v21082021_102.lat)
     var lat: Double?
     
-    @OptionalField(key: "long")
+    @OptionalField(key: Address.v21082021_102.long)
     var long: Double?
     
-    @Field(key: "so_nha")
+    @Field(key: Address.v21082021_102.so_nha)
     var so_nha: String
     
-    @Field(key: "phuong_xa")
+    @Field(key: Address.v21082021_102.phuong_xa)
     var phuong_xa: String
     
-    @Field(key: "quan_huyen")
+    @Field(key: Address.v21082021_102.quan_huyen)
     var quan_huyen: String
     
-    @Field(key: "tinh_thanh")
+    @Field(key: Address.v21082021_102.tinh_thanh)
     var tinh_thanh: String
     
     @Timestamp(key: "createdAt", on: .create)

@@ -29,6 +29,9 @@ public func configure(_ app: Application) throws {
   app.migrations.add(CreateAddress())
   app.migrations.add(CreateRating())
   app.migrations.add(CreateUserSub())
+    
+  //UPDATE DATABASE
+ // app.migrations.add(RemoveMienToAddress())
 
   let redisHostname: String
   if let redisEnvironmentHostname =
