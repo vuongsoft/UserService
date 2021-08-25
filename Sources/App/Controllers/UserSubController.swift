@@ -27,6 +27,7 @@ struct UserSubController: RouteCollection {
     let usersub = UserSub(
         type: data.type,
         expired: data.expired,
+        point: data.point,
         user_id: data.user_id)
     return usersub.save(on: req.db).map { usersub }
   }
@@ -46,6 +47,7 @@ struct UserSubController: RouteCollection {
         .unwrap(or: Abort(.notFound)).flatMap { usersub in
             usersub.type = updatedUserSub.type
             usersub.expired = updatedUserSub.expired
+            usersub.point = updatedUserSub.point
             usersub.$user.id = updatedUserSub.user_id
             
           return usersub.save(on: req.db).map {
@@ -67,5 +69,6 @@ struct UserSubController: RouteCollection {
 struct CreateUserSubData: Content {
   let type: Int
   let expired: String
+  let point: Double
   let user_id: UUID
 }

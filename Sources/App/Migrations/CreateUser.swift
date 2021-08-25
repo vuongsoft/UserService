@@ -21,12 +21,10 @@ struct CreateUser: Migration {
         .field(User.v21082021_102.gender, .string)
         .field(User.v21082021_102.avatar, .string)
         .field(User.v21082021_102.birthday, .string)
-        .field(User.v21082021_102.pointing, .int)
         .field("createdAt", .datetime)
         .field("updatedAt", .datetime)
         .field("deletedAt", .datetime)
-        .field(User.v21082021_102.address_id, .uuid)
-      .create()
+        .create()
   }
 
   func revert(on database: Database) -> EventLoopFuture<Void> {
@@ -47,7 +45,5 @@ extension User {
     static let gender = FieldKey(stringLiteral: "gender")
     static let avatar = FieldKey(stringLiteral: "avatar")
     static let birthday = FieldKey(stringLiteral: "birthday")
-    static let pointing = FieldKey(stringLiteral: "pointing")
-    static let address_id = FieldKey(stringLiteral: "address_id")
     }
 }

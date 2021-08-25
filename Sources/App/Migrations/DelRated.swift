@@ -7,7 +7,7 @@
 
 import Fluent
 
-struct RemoveMienToAddress: Migration {
+struct DelRated: Migration {
   func prepare(on database: Database) -> EventLoopFuture<Void> {
     database.schema(Address.v21082021_102.schemaName)
       .deleteField(Address.v21082022_102.vung_mien)

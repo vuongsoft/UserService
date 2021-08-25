@@ -16,10 +16,20 @@ struct AddressController: RouteCollection {
     addressRoute.get(use: getAllHandler)
     addressRoute.get(":addressID", use: getHandler)
     addressRoute.put(":addressID", use: updateHandler)
+    
+    addressRoute.get(":addressID", "user", use: getUserHandler)
 }
 
   func createHandler(_ req: Request) throws -> EventLoopFuture<Address> {
-    let address = try req.content.decode(Address.self)
+    let data = try req.content.decode(CreateAddressData.self)
+    
+    let address = Address(
+        so_nha: data.so_nha,
+        phuong_xa: data.phuong_xa,
+        quan_huyen: data.quan_huyen,
+        tinh_thanh: data.tinh_thanh,
+        user_id: data.user_id)
+    
     return address.save(on: req.db).map { address }
   }
     
@@ -33,7 +43,7 @@ struct AddressController: RouteCollection {
     }
     
     func updateHandler(_ req: Request) throws -> EventLoopFuture<Address> {
-      let updatedAddress = try req.content.decode(Address.self)
+      let updatedAddress = try req.content.decode(CreateAddressData.self)
       return Address.find(req.parameters.get("addressID"), on: req.db)
         .unwrap(or: Abort(.notFound)).flatMap { address in
             address.lat = updatedAddress.lat
@@ -42,6 +52,7 @@ struct AddressController: RouteCollection {
             address.phuong_xa = updatedAddress.phuong_xa
             address.quan_huyen = updatedAddress.quan_huyen
             address.tinh_thanh = updatedAddress.tinh_thanh
+            address.$user.id = updatedAddress.user_id
             
           return address.save(on: req.db).map {
             address
@@ -49,4 +60,22 @@ struct AddressController: RouteCollection {
       }
     }
     
+    func getUserHandler(_ req: Request) -> EventLoopFuture<User> {
+      Address.find(req.parameters.get("addressID"), on: req.db)
+      .unwrap(or: Abort(.notFound))
+      .flatMap { address in
+        address.$user.get(on: req.db)
+      }
+    }
+    
+}
+
+struct CreateAddressData: Content {
+    let lat: Double?
+    let long: Double?
+    let so_nha: String
+    let phuong_xa: String
+    let quan_huyen: String
+    let tinh_thanh: String
+    let user_id: UUID
 }

@@ -41,10 +41,13 @@ final class Address: Model, Content {
     @Timestamp(key: "deletedAt", on: .delete)
     var deletedAt: Date?
     
+    @Parent(key: Address.v21082021_102.user_id)
+    var user: User
+    
     init() {
     }
     
-    init(id: UUID? = nil, lat: Double? = nil, long: Double? = nil, so_nha: String, phuong_xa: String, quan_huyen: String, tinh_thanh: String) {
+    init(id: UUID? = nil, lat: Double? = nil, long: Double? = nil, so_nha: String, phuong_xa: String, quan_huyen: String, tinh_thanh: String, user_id: User.IDValue) {
         self.id = id
         self.lat = lat
         self.long = long
@@ -52,5 +55,6 @@ final class Address: Model, Content {
         self.phuong_xa = phuong_xa
         self.quan_huyen = quan_huyen
         self.tinh_thanh = tinh_thanh
+        self.$user.id = user_id
     }
 }

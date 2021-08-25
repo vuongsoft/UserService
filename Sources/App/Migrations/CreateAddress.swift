@@ -17,6 +17,7 @@ struct CreateAddress: Migration {
     .field(Address.v21082021_102.phuong_xa, .string, .required)
     .field(Address.v21082021_102.quan_huyen, .string, .required)
     .field(Address.v21082021_102.tinh_thanh, .string, .required)
+    .field(Address.v21082021_102.user_id, .uuid, .required, .references(User.v21082021_102.schemaName, User.v21082021_102.id))
     .field("createdAt", .datetime)
     .field("updatedAt", .datetime)
     .field("deletedAt", .datetime)
@@ -39,6 +40,7 @@ extension Address {
     static let phuong_xa = FieldKey(stringLiteral: "phuong_xa")
     static let quan_huyen = FieldKey(stringLiteral: "quan_huyen")
     static let tinh_thanh = FieldKey(stringLiteral: "tinh_thanh")
+    static let user_id = FieldKey(stringLiteral: "user_id")
     }
     
     enum v21082022_102 {

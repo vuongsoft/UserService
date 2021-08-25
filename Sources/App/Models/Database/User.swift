@@ -12,54 +12,54 @@ import Fluent
 final class User: Model, Content {
     static let schema = User.v21082021_102.schemaName
 
-  @ID
-  var id: UUID?
-
+    @ID
+    var id: UUID?
+    
     @Field(key: User.v21082021_102.name)
-  var name: String
-
+    var name: String
+    
     @Field(key: User.v21082021_102.username)
-  var username: String
-
+    var username: String
+    
     @Field(key: User.v21082021_102.password)
-  var password: String
+    var password: String
     
     @Field(key: User.v21082021_102.email)
-  var email: String
-
+    var email: String
+    
     @Field(key: User.v21082021_102.phone)
-  var phone: String
+    var phone: String
     
     @OptionalField(key: User.v21082021_102.gender)
-  var gender: String?
-      
+    var gender: String?
+    
     @OptionalField(key: User.v21082021_102.avatar)
-  var avatar: String?
-
+    var avatar: String?
+    
     @OptionalField(key: User.v21082021_102.birthday)
-  var birthday: String?
-
-    @OptionalField(key: User.v21082021_102.pointing)
-  var pointing: Int?
-
-  @Timestamp(key: "createdAt", on: .create)
-  var createdAt: Date?
+    var birthday: String?
     
-  @Timestamp(key: "updatedAt", on: .update)
-  var updatedAt: Date?
+    @Timestamp(key: "createdAt", on: .create)
+    var createdAt: Date?
     
-  @Timestamp(key: "deletedAt", on: .delete)
-  var deletedAt: Date?
+    @Timestamp(key: "updatedAt", on: .update)
+    var updatedAt: Date?
     
-  @OptionalField(key: User.v21082021_102.address_id)
-  var address_id: UUID?
-
-  @Children(for: \UserSub.$user)
-  var usersub: [UserSub]
+    @Timestamp(key: "deletedAt", on: .delete)
+    var deletedAt: Date?
+    
+    @Children(for: \UserSub.$user)
+    var usersub: [UserSub]
+    
+    @Children(for: \Rating.$user)
+    var rating: [Rating]
+    
+    @Children(for: \Address.$user)
+    var address: [Address]
 
     init(name: String, username: String, password: String, email: String,
          phone: String, gender: String? = nil, avatar: String? = nil,
-         birthday: String? = nil, pointing: Int? = nil, address_id: UUID? = nil) {
+         birthday: String? = nil) {
     self.name = name
     self.username = username
     self.password = password
@@ -68,8 +68,6 @@ final class User: Model, Content {
     self.gender = gender
     self.avatar = avatar
     self.birthday = birthday
-    self.pointing = pointing
-    self.address_id = address_id
   }
     
 
@@ -84,12 +82,10 @@ final class User: Model, Content {
     var gender: String?
     var avatar: String?
     var birthday: String?
-    var pointing: Int?
-    var address_id: UUID?
 
     init(id: UUID?, name: String, username: String, email: String,
          phone: String, gender: String?, avatar: String?,
-         birthday: String?, pointing: Int?, address_id: UUID?) {
+         birthday: String?) {
       self.id = id
       self.name = name
       self.username = username
@@ -98,8 +94,6 @@ final class User: Model, Content {
       self.gender = gender
       self.avatar = avatar
       self.birthday = birthday
-      self.pointing = pointing
-      self.address_id = address_id
     }
   }
     
@@ -107,7 +101,7 @@ final class User: Model, Content {
 
 extension User {
   func convertToPublic() -> User.Public {
-    return User.Public(id: id, name: name, username: username, email: email, phone: phone, gender: gender, avatar: avatar, birthday: birthday, pointing: pointing, address_id: address_id)
+    return User.Public(id: id, name: name, username: username, email: email, phone: phone, gender: gender, avatar: avatar, birthday: birthday)
   }
 }
 

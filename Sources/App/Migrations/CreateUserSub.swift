@@ -13,6 +13,7 @@ struct CreateUserSub: Migration {
       .id()
       .field(UserSub.v21082021_102.type, .int, .required)
       .field(UserSub.v21082021_102.expired, .string, .required)
+      .field(UserSub.v21082021_102.point, .double, .required)
       .field("createdAt", .datetime)
       .field("updatedAt", .datetime)
       .field("deletedAt", .datetime)
@@ -31,6 +32,7 @@ extension UserSub {
         
     static let id = FieldKey(stringLiteral: "id")
     static let type = FieldKey(stringLiteral: "type")
+    static let point = FieldKey(stringLiteral: "point")
     static let expired = FieldKey(stringLiteral: "expired")
     static let user_id = FieldKey(stringLiteral: "user_id")
     }

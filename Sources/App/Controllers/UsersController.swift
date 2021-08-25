@@ -16,7 +16,10 @@ struct UsersController: RouteCollection {
     usersGroup.post(use: createHandler)
     usersGroup.put(":userID", use: updateHandler)
     
+    //Get info of User
     usersGroup.get(":userID", "usersub", use: getUserSubHandler)
+    usersGroup.get(":userID", "rating", use: getRatingHandler)
+    usersGroup.get(":userID", "address", use: getAddressHandler)
     
   }
 
@@ -66,9 +69,6 @@ struct UsersController: RouteCollection {
           user.gender = updatedUser.gender
           user.avatar = updatedUser.avatar
           user.birthday = updatedUser.birthday
-          user.pointing = updatedUser.pointing
-          user.address_id = updatedUser.address_id
-            
           return user.save(on: req.db).map {
             user.convertToPublic()
           }
@@ -80,6 +80,22 @@ struct UsersController: RouteCollection {
         .unwrap(or: Abort(.notFound))
         .flatMap { user in
           user.$usersub.get(on: req.db)
+        }
+    }
+    
+    func getRatingHandler(_ req: Request) -> EventLoopFuture<[Rating]> {
+      User.find(req.parameters.get("userID"), on: req.db)
+        .unwrap(or: Abort(.notFound))
+        .flatMap { user in
+          user.$rating.get(on: req.db)
+        }
+    }
+    
+    func getAddressHandler(_ req: Request) -> EventLoopFuture<[Address]> {
+      User.find(req.parameters.get("userID"), on: req.db)
+        .unwrap(or: Abort(.notFound))
+        .flatMap { user in
+          user.$address.get(on: req.db)
         }
     }
     

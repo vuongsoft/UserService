@@ -29,20 +29,16 @@ final class Rating: Model, Content {
     @Timestamp(key: "deletedAt", on: .delete)
     var deletedAt: Date?
     
-    @Field(key: Rating.v21082021_102.rater_id)
-    var rater_id: UUID
-    
-    @Field(key: Rating.v21082021_102.rated_id)
-    var rated_id: UUID
+    @Parent(key: Rating.v21082021_102.user_id)
+    var user: User
     
     init() {
     }
     
-    init(id: UUID? = nil, content: String? = nil, point: Int, rater_id: UUID, rated_id: UUID) {
+    init(id: UUID? = nil, content: String? = nil, point: Int, user_id: User.IDValue) {
         self.id = id
         self.content = content
         self.point = point
-        self.rater_id = rater_id
-        self.rated_id = rated_id
+        self.$user.id = user_id
     }
 }

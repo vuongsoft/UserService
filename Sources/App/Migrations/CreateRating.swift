@@ -10,15 +10,14 @@ import Fluent
 struct CreateRating: Migration {
   func prepare(on database: Database) -> EventLoopFuture<Void> {
     return database.schema(Rating.v21082021_102.schemaName)
-      .id()
+        .id()
         .field(Rating.v21082021_102.content, .string)
         .field(Rating.v21082021_102.point, .int, .required)
-      .field("createdAt", .datetime)
-      .field("updatedAt", .datetime)
-      .field("deletedAt", .datetime)
-        .field(Rating.v21082021_102.rater_id, .uuid)
-        .field(Rating.v21082021_102.rated_id, .uuid)
-      .create()
+        .field("createdAt", .datetime)
+        .field("updatedAt", .datetime)
+        .field("deletedAt", .datetime)
+        .field(Rating.v21082021_102.user_id, .uuid, .required, .references(User.v21082021_102.schemaName, User.v21082021_102.id))
+        .create()
   }
   
   func revert(on database: Database) -> EventLoopFuture<Void> {
@@ -33,7 +32,6 @@ extension Rating {
     static let id = FieldKey(stringLiteral: "id")
     static let content = FieldKey(stringLiteral: "content")
     static let point = FieldKey(stringLiteral: "point")
-    static let rater_id = FieldKey(stringLiteral: "rater_id")
-    static let rated_id = FieldKey(stringLiteral: "rated_id")
+    static let user_id = FieldKey(stringLiteral: "user_id")
     }
 }

@@ -20,6 +20,9 @@ final class UserSub: Model, Content {
     @Field(key: UserSub.v21082021_102.expired)
     var expired: String
     
+    @Field(key: UserSub.v21082021_102.point)
+    var point: Double
+    
     @Timestamp(key: "createdAt", on: .create)
     var createdAt: Date?
     
@@ -35,9 +38,10 @@ final class UserSub: Model, Content {
     init() {
     }
     
-    init(id: UUID? = nil, type: Int, expired: String, user_id: User.IDValue) {
+    init(id: UUID? = nil, type: Int, expired: String, point: Double, user_id: User.IDValue) {
         self.id = id
         self.type = type
+        self.point = point
         self.expired = expired
         self.$user.id = user_id
     }
