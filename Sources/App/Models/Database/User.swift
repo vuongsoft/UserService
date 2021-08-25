@@ -10,33 +10,33 @@ import Vapor
 import Fluent
 
 final class User: Model, Content {
-    static let schema = User.v21082021_102.schemaName
+    static let schema = User.v102.schemaName
 
     @ID
     var id: UUID?
     
-    @Field(key: User.v21082021_102.name)
+    @Field(key: User.v102.name)
     var name: String
     
-    @Field(key: User.v21082021_102.username)
+    @Field(key: User.v102.username)
     var username: String
     
-    @Field(key: User.v21082021_102.password)
+    @Field(key: User.v102.password)
     var password: String
     
-    @Field(key: User.v21082021_102.email)
+    @Field(key: User.v102.email)
     var email: String
     
-    @Field(key: User.v21082021_102.phone)
+    @Field(key: User.v102.phone)
     var phone: String
     
-    @OptionalField(key: User.v21082021_102.gender)
+    @OptionalField(key: User.v102.gender)
     var gender: String?
     
-    @OptionalField(key: User.v21082021_102.avatar)
+    @OptionalField(key: User.v102.avatar)
     var avatar: String?
     
-    @OptionalField(key: User.v21082021_102.birthday)
+    @OptionalField(key: User.v102.birthday)
     var birthday: String?
     
     @Timestamp(key: "createdAt", on: .create)

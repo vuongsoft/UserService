@@ -9,15 +9,15 @@ import Fluent
 
 struct CreateAddress: Migration {
   func prepare(on database: Database) -> EventLoopFuture<Void> {
-    return database.schema(Address.v21082021_102.schemaName)
+    return database.schema(Address.v102.schemaName)
     .id()
-    .field(Address.v21082021_102.lat, .double)
-    .field(Address.v21082021_102.long, .double)
-    .field(Address.v21082021_102.so_nha, .string, .required)
-    .field(Address.v21082021_102.phuong_xa, .string, .required)
-    .field(Address.v21082021_102.quan_huyen, .string, .required)
-    .field(Address.v21082021_102.tinh_thanh, .string, .required)
-    .field(Address.v21082021_102.user_id, .uuid, .required, .references(User.v21082021_102.schemaName, User.v21082021_102.id))
+    .field(Address.v102.lat, .double)
+    .field(Address.v102.long, .double)
+    .field(Address.v102.so_nha, .string, .required)
+    .field(Address.v102.phuong_xa, .string, .required)
+    .field(Address.v102.quan_huyen, .string, .required)
+    .field(Address.v102.tinh_thanh, .string, .required)
+    .field(Address.v102.user_id, .uuid, .required, .references(User.v102.schemaName, User.v102.id))
     .field("createdAt", .datetime)
     .field("updatedAt", .datetime)
     .field("deletedAt", .datetime)
@@ -25,12 +25,12 @@ struct CreateAddress: Migration {
   }
   
   func revert(on database: Database) -> EventLoopFuture<Void> {
-    return database.schema(Address.v21082021_102.schemaName).delete()
+    return database.schema(Address.v102.schemaName).delete()
   }
 }
 
 extension Address {
-    enum v21082021_102 {
+    enum v102 {
     static let schemaName = "address"
         
     static let id = FieldKey(stringLiteral: "id")

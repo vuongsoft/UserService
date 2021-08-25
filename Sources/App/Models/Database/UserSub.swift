@@ -9,18 +9,18 @@ import Vapor
 import Fluent
 
 final class UserSub: Model, Content {
-    static let schema = UserSub.v21082021_102.schemaName
+    static let schema = UserSub.v102.schemaName
     
     @ID(key: .id)
     var id: UUID?
     
-    @Field(key: UserSub.v21082021_102.type)
+    @Field(key: UserSub.v102.type)
     var type: Int
     
-    @Field(key: UserSub.v21082021_102.expired)
+    @Field(key: UserSub.v102.expired)
     var expired: String
     
-    @Field(key: UserSub.v21082021_102.point)
+    @Field(key: UserSub.v102.point)
     var point: Double
     
     @Timestamp(key: "createdAt", on: .create)
@@ -32,7 +32,7 @@ final class UserSub: Model, Content {
     @Timestamp(key: "deletedAt", on: .delete)
     var deletedAt: Date?
     
-    @Parent(key: UserSub.v21082021_102.user_id)
+    @Parent(key: UserSub.v102.user_id)
     var user: User
     
     init() {

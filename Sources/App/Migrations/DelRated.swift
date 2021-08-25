@@ -9,12 +9,12 @@ import Fluent
 
 struct DelRated: Migration {
   func prepare(on database: Database) -> EventLoopFuture<Void> {
-    database.schema(Address.v21082021_102.schemaName)
+    database.schema(Address.v102.schemaName)
       .deleteField(Address.v21082022_102.vung_mien)
       .update()
   }
 
   func revert(on database: Database) -> EventLoopFuture<Void> {
-    database.schema(Address.v21082021_102.schemaName).delete()
+    database.schema(Address.v102.schemaName).delete()
   }
 }

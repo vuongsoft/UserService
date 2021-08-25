@@ -9,15 +9,15 @@ import Vapor
 import Fluent
 
 final class Rating: Model, Content {
-    static let schema = Rating.v21082021_102.schemaName
+    static let schema = Rating.v102.schemaName
     
     @ID(key: .id)
     var id: UUID?
     
-    @OptionalField(key: Rating.v21082021_102.content)
+    @OptionalField(key: Rating.v102.content)
     var content: String?
     
-    @Field(key: Rating.v21082021_102.point)
+    @Field(key: Rating.v102.point)
     var point: Int
     
     @Timestamp(key: "createdAt", on: .create)
@@ -29,7 +29,7 @@ final class Rating: Model, Content {
     @Timestamp(key: "deletedAt", on: .delete)
     var deletedAt: Date?
     
-    @Parent(key: Rating.v21082021_102.user_id)
+    @Parent(key: Rating.v102.user_id)
     var user: User
     
     init() {

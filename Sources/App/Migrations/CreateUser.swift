@@ -10,17 +10,17 @@ import Foundation
 
 struct CreateUser: Migration {
   func prepare(on database: Database) -> EventLoopFuture<Void> {
-    database.schema(User.v21082021_102.schemaName)
+    database.schema(User.v102.schemaName)
         .id()
-        .field(User.v21082021_102.name, .string, .required)
-        .field(User.v21082021_102.username, .string, .required)
-        .unique(on: User.v21082021_102.username)
-        .field(User.v21082021_102.password, .string, .required)
-        .field(User.v21082021_102.email, .string, .required)
-        .field(User.v21082021_102.phone, .string, .required)
-        .field(User.v21082021_102.gender, .string)
-        .field(User.v21082021_102.avatar, .string)
-        .field(User.v21082021_102.birthday, .string)
+        .field(User.v102.name, .string, .required)
+        .field(User.v102.username, .string, .required)
+        .unique(on: User.v102.username)
+        .field(User.v102.password, .string, .required)
+        .field(User.v102.email, .string, .required)
+        .field(User.v102.phone, .string, .required)
+        .field(User.v102.gender, .string)
+        .field(User.v102.avatar, .string)
+        .field(User.v102.birthday, .string)
         .field("createdAt", .datetime)
         .field("updatedAt", .datetime)
         .field("deletedAt", .datetime)
@@ -28,12 +28,12 @@ struct CreateUser: Migration {
   }
 
   func revert(on database: Database) -> EventLoopFuture<Void> {
-    database.schema(User.v21082021_102.schemaName).delete()
+    database.schema(User.v102.schemaName).delete()
   }
 }
 
 extension User {
-    enum v21082021_102 {
+    enum v102 {
     static let schemaName = "users"
         
     static let id = FieldKey(stringLiteral: "id")
