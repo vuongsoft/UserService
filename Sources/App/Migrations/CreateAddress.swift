@@ -42,9 +42,4 @@ extension Address {
     static let tinh_thanh = FieldKey(stringLiteral: "tinh_thanh")
     static let user_id = FieldKey(stringLiteral: "user_id")
     }
-    
-    enum v21082022_102 {
-     static let vung_mien = FieldKey(stringLiteral: "vung_mien")
-    }
-    
 }

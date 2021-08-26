@@ -5,6 +5,7 @@
 //  Created by Duc Hai NGUYEN on 21/08/2021.
 //
 
+/*
 import Fluent
 
 struct DelRated: Migration {
@@ -18,3 +19,4 @@ struct DelRated: Migration {
     database.schema(Address.v102.schemaName).delete()
   }
 }
+*/
